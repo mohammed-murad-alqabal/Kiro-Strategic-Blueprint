@@ -1,0 +1,39 @@
+{
+  "mcp_version": "1.0",
+  "description": "Model Context Protocol (MCP) configuration for Kiro-Strategic-Blueprint. Defines external knowledge sources and agent configurations.",
+  "knowledge_sources": [
+    {
+      "id": "engineering_charter",
+      "type": "document",
+      "uri": "/home/ubuntu/upload/The_Definitive_Engineering_Charter__A_Blueprint_fo.md",
+      "priority": 100,
+      "description": "The Definitive Engineering Charter: Blueprint for technical stack, organizational principles, and quality standards. Highest priority context."
+    },
+    {
+      "id": "kiro_docs",
+      "type": "web",
+      "uri": "https://kiro.dev/docs",
+      "priority": 90,
+      "description": "Official Kiro IDE documentation for core concepts (Specs, Steering, Hooks, MCP)."
+    },
+    {
+      "id": "aws_best_practices",
+      "type": "web",
+      "uri": "https://github.com/awsdataarchitect/kiro-best-practices",
+      "priority": 80,
+      "description": "Best practices and boilerplate for Kiro implementation on AWS."
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "Flutter_Official_Docs",
+      "url": "https://mock-mcp.kiro.dev/flutter/docs",
+      "description": "وثائق Flutter الرسمية، تستخدم لضمان أن الكود المولد يتبع أحدث المعايير."
+    },
+    {
+      "name": "Go_Best_Practices",
+      "url": "https://mock-mcp.kiro.dev/go/best-practices",
+      "description": "أفضل ممارسات Go، تستخدم لضمان أن الكود المولد يتبع الأنماط المعتمدة."
+    }
+  ]
+}
