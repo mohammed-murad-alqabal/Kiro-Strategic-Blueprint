@@ -27,6 +27,17 @@
 
 ## 2. المبادئ المعمارية الرئيسية (Key Architectural Principles)
 
+### ج. المرونة الهندسية (Architectural Resilience)
+
+*   **المبدأ:** يجب تصميم جميع الخدمات لتحمل الفشل (Design for Failure) بدلاً من تجنبه، بما يتماشى مع مبادئ هندسة الفوضى (Chaos Engineering) وركيزة الموثوقية في AWS Well-Architected Framework.
+*   **التوجيه:** يجب على وكيل Kiro فرض استخدام أنماط المرونة التالية عند توليد الكود:
+    1.  **Circuit Breaker:** يجب تطبيق نمط قاطع الدائرة على جميع المكالمات الخارجية (Outbound Calls) لمنع فشل خدمة واحدة من التسبب في فشل متتالي (Cascading Failure).
+    2.  **Retry with Backoff:** يجب تطبيق آلية إعادة المحاولة مع التراجع الأسي (Exponential Backoff) للمكالمات التي يحتمل أن تنجح بعد فترة قصيرة.
+    3.  **Bulkhead:** يجب عزل الموارد (مثل مجموعات الخيوط أو الاتصالات) لكل خدمة تابعة لمنع استهلاك الموارد من قبل خدمة واحدة من التأثير على الخدمات الأخرى.
+    4.  **Timeouts:** يجب تحديد مهلات (Timeouts) صارمة لجميع المكالمات بين الخدمات لضمان عدم تعليق الموارد إلى أجل غير مسمى.
+
+## 4. الاتصال الموجه بالرسائل (Message-Driven Communication)
+
 ### أ. الاتصال الموجه بالرسائل (Message-Driven Communication)
 
 *   **المبدأ:** يجب أن يتم الاتصال بين الخدمات (Client/Server) عبر واجهات برمجة تطبيقات (APIs) واضحة أو بروتوكولات موجهة بالرسائل (مثل WebSocket).
@@ -37,7 +48,7 @@
 *   **المبدأ:** يجب أن تكون البنية التحتية لكل خدمة (Client/Server) محددة بالكامل في مجلد `iac/` الخاص بها.
 *   **التوجيه:** يجب أن يتم استخدام أدوات IaC المعتمدة (مثل Terraform أو CloudFormation) لضمان قابلية التكرار.
 
-## 3. اتفاقيات التسمية (Naming Conventions)
+## 5. اتفاقيات التسمية (Naming Conventions)
 
 | العنصر | الاتفاقية | مثال |
 | :--- | :--- | :--- |
@@ -46,7 +57,7 @@
 | **المتغيرات والدوال** | **camelCase** | `getUserData()`، `isLoggedIn` |
 | **رسائل الالتزام (Commits)** | **Conventional Commits** | `feat: add user authentication`، `fix: resolve login bug` |
 
-## 4. متطلبات الهيكلة الإلزامية (Mandatory Structural Requirements)
+## 6. متطلبات الهيكلة الإلزامية (Mandatory Structural Requirements)
 
 *   **IaC لكل خدمة:** يجب أن يكون لكل خدمة (Microservice) ملفات IaC خاصة بها في مجلد `iac/` لضمان الاستقلالية.
 *   **فصل الاختبارات:** يجب أن تكون ملفات الاختبارات مفصولة عن كود المصدر (مثل `client/test/` و `server/service-auth/test/`).
