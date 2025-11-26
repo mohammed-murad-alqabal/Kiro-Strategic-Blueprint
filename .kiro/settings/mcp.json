@@ -3,10 +3,10 @@
   "description": "Model Context Protocol (MCP) configuration for Kiro-Strategic-Blueprint. Defines external knowledge sources and agent configurations.",
   "knowledge_sources": [
     {
-      "id": "engineering_charter",
+      "id": "engineering_charter_file",
       "type": "document",
-      "uri": "/home/ubuntu/upload/The_Definitive_Engineering_Charter__A_Blueprint_fo.md",
-      "priority": 100,
+      "uri": "file:///home/ubuntu/upload/The_Definitive_Engineering_Charter__A_Blueprint_fo.md",
+      "priority": 95,
       "description": "The Definitive Engineering Charter: Blueprint for technical stack, organizational principles, and quality standards. Highest priority context."
     },
     {
