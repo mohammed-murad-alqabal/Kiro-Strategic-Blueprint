@@ -1,21 +1,42 @@
-# توجيه هيكل المشروع (Project Structure Steering)
+'''# التوجيه الهيكلي والمعماري (Architectural and Structural Steering)
 
-هذا الملف يحدد المبادئ التوجيهية لهيكلة المشروع، بما في ذلك تنظيم الملفات، الاتفاقيات المعمارية، واتفاقيات التسمية. يجب على وكلاء الذكاء الاصطناعي الالتزام بهذه المبادئ عند إنشاء أو تعديل أي ملفات أو مجلدات.
+## المبدأ الأساسي: الفصل الواضح للمسؤوليات (Clear Separation of Concerns)
+يجب أن يتم تنظيم المشروع بطريقة تعكس الفصل الواضح للمسؤوليات المعمارية، مما يضمن قابلية الصيانة والتوسع.
 
 ## 1. تنظيم المستوى الجذري (Root Level Organization)
 
-يجب أن يتبع هيكل المشروع نمط الخدمات المصغرة (Microservices) أو المكونات المنفصلة (Decoupled Components) لضمان قابلية التوسع والصيانة. **التوجيه للوكيل:** عند إنشاء مكونات جديدة، يجب فصل المنطق التجاري عن طبقة الوصول إلى البيانات.
+يجب أن يتبع هيكل المشروع نمط الخدمات المصغرة (Microservices) أو المكونات المنفصلة (Decoupled Components) لضمان قابلية التوسع والصيانة.
+
+### أ. اختيار نمط المستودع (Repository Pattern)
+
+يجب أن يلتزم المشروع بأحد الأنماط التالية، ويجب توثيق الاختيار في `specs/design.md`:
+
+| النمط | الوصف | التوجيه |
+| :--- | :--- | :--- |
+| **Monorepo** | جميع الخدمات والمكونات في مستودع واحد. | **موصى به للمشاريع الصغيرة والمتوسطة** لتبسيط إدارة التبعيات والـ CI/CD. |
+| **Polyrepo** | كل خدمة أو مكون في مستودع منفصل. | **موصى به للمشاريع الكبيرة جدًا** التي تتطلب استقلالية نشر عالية. |
 
 | المجلد | الوصف | التوجيه المعماري |
 | :--- | :--- | :--- |
-| `client/` | تطبيق الواجهة الأمامية (Frontend Application) (مثلاً: Flutter، Vue.js). | يجب أن يتبع نمط MVVM أو Component-Based Architecture. |
-| `server/` | تطبيق الواجهة الخلفية (Backend Application) (مثلاً: Go، Bun WebSocket Server). | يجب أن يتبع نمط Layered Architecture أو Clean Architecture. |
+| `client/` | تطبيق الواجهة الأمامية (Frontend Application) (Flutter). | يجب أن يتبع نمط MVVM أو Component-Based Architecture. |
+| `server/` | تطبيق الواجهة الخلفية (Backend Application) (Go Microservices). | يجب أن يتبع نمط Layered Architecture أو Clean Architecture. |
 | `docs/` | وثائق المشروع العامة (باستثناء وثائق Kiro الخاصة). | يجب أن تكون الوثائق محدثة وتتبع معيار Markdown. |
 | `scripts/` | نصوص الأتمتة (Automation Scripts) (مثل: النشر، الإعداد). | يجب أن تكون النصوص قابلة للتنفيذ وموثقة. |
-| `iac/` | البنية التحتية ككود (Infrastructure as Code) (مثل: Terraform، CloudFormation). | يجب أن تكون منفصلة لكل خدمة (Client/Server). |
-| `.kiro/` | ملفات توجيه Kiro (Steering, Specs, Hooks, Prompts). | **يجب عدم تعديل هذا المجلد إلا لغرض المعايرة الاستراتيجية.** (يجب على الوكيل قراءة هذا المجلد، وليس تعديله بشكل روتيني). |
+| `iac/` | البنية التحتية ككود (Infrastructure as Code) (Terraform). | يجب أن تكون منفصلة لكل خدمة (Client/Server). |
+| `.kiro/` | ملفات توجيه Kiro (Steering, Specs, Hooks, Prompts). | **يجب عدم تعديل هذا المجلد إلا لغرض المعايرة الاستراتيجية.** |
 
 ## 2. المبادئ المعمارية الرئيسية (Key Architectural Principles)
+
+### ج. المرونة الهندسية (Architectural Resilience)
+
+*   **المبدأ:** يجب تصميم جميع الخدمات لتحمل الفشل (Design for Failure) بدلاً من تجنبه، بما يتماشى مع مبادئ هندسة الفوضى (Chaos Engineering) وركيزة الموثوقية في AWS Well-Architected Framework.
+*   **التوجيه:** يجب على وكيل Kiro فرض استخدام أنماط المرونة التالية عند توليد الكود:
+    1.  **Circuit Breaker:** يجب تطبيق نمط قاطع الدائرة على جميع المكالمات الخارجية (Outbound Calls) لمنع فشل خدمة واحدة من التسبب في فشل متتالي (Cascading Failure).
+    2.  **Retry with Backoff:** يجب تطبيق آلية إعادة المحاولة مع التراجع الأسي (Exponential Backoff) للمكالمات التي يحتمل أن تنجح بعد فترة قصيرة.
+    3.  **Bulkhead:** يجب عزل الموارد (مثل مجموعات الخيوط أو الاتصالات) لكل خدمة تابعة لمنع استهلاك الموارد من قبل خدمة واحدة من التأثير على الخدمات الأخرى.
+    4.  **Timeouts:** يجب تحديد مهلات (Timeouts) صارمة لجميع المكالمات بين الخدمات لضمان عدم تعليق الموارد إلى أجل غير مسمى.
+
+## 4. الاتصال الموجه بالرسائل (Message-Driven Communication)
 
 ### أ. الاتصال الموجه بالرسائل (Message-Driven Communication)
 
@@ -27,7 +48,7 @@
 *   **المبدأ:** يجب أن تكون البنية التحتية لكل خدمة (Client/Server) محددة بالكامل في مجلد `iac/` الخاص بها.
 *   **التوجيه:** يجب أن يتم استخدام أدوات IaC المعتمدة (مثل Terraform أو CloudFormation) لضمان قابلية التكرار.
 
-## 3. اتفاقيات التسمية (Naming Conventions)
+## 5. اتفاقيات التسمية (Naming Conventions)
 
 | العنصر | الاتفاقية | مثال |
 | :--- | :--- | :--- |
@@ -35,3 +56,10 @@
 | **المكونات (Components)** | **PascalCase** | `UserProfileComponent` |
 | **المتغيرات والدوال** | **camelCase** | `getUserData()`، `isLoggedIn` |
 | **رسائل الالتزام (Commits)** | **Conventional Commits** | `feat: add user authentication`، `fix: resolve login bug` |
+
+## 6. متطلبات الهيكلة الإلزامية (Mandatory Structural Requirements)
+
+*   **IaC لكل خدمة:** يجب أن يكون لكل خدمة (Microservice) ملفات IaC خاصة بها في مجلد `iac/` لضمان الاستقلالية.
+*   **فصل الاختبارات:** يجب أن تكون ملفات الاختبارات مفصولة عن كود المصدر (مثل `client/test/` و `server/service-auth/test/`).
+*   **التوثيق المولد:** يجب أن يتم توليد التوثيق (مثل وثائق API) تلقائيًا وتخزينه في مجلد `docs/`.
+'''

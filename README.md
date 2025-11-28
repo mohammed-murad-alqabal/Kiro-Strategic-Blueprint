@@ -1,43 +1,40 @@
-# Kiro Strategic Blueprint: النموذج المرجعي الديناميكي
+# Kiro Strategic Blueprint: The Complete Engineering Model
 
-**"من التفكير إلى التنفيذ، بوعي هندسي متكامل."**
+This repository serves as the **Complete Engineering Model** for Kiro IDE projects, implementing a robust, self-governing architecture based on **Spec-Driven Development (SDD)** and the **Security First** principle.
 
-هذا المستودع هو **النموذج المرجعي الديناميكي (Dynamic Reference Blueprint)** لتطبيق منهجية Kiro المتقدمة. تم تصميمه ليكون بمثابة "المخطط الهندسي" الذي يوجه وكيل Kiro الذكي لفرض أفضل الممارسات الهندسية، الأمان، والالتزام بالمواصفات (Specs) في كل خطوة من خطوات دورة حياة التطوير.
-
-## 1. الفلسفة الهندسية (The Engineering Philosophy)
-
-تم بناء هذا القالب على مبدأ **"التطوير الموجه بالمواصفات" (Spec-Driven Development)**. نحن لا نكتب الكود أولاً، بل نكتب المواصفات أولاً. يتم توجيه وكيل Kiro لضمان أن كل مخرج (كود، تصميم، توثيق) يلتزم بشكل صارم بالمبادئ المحددة في ملفات `specs/` و `steering/`.
-
-## 2. الهيكل المعماري (The Architecture)
-
-يتمحور القالب حول مجلد `.kiro/` الذي يحتوي على "عقل" المشروع:
-
-| المجلد | الوصف | الوظيفة الأساسية |
-| :--- | :--- | :--- |
-| **specs/** | وثائق المواصفات الهندسية | يحدد **ماذا** يجب أن يحقق المشروع (المتطلبات، التصميم، مقاييس النجاح). |
-| **steering/** | المبادئ والتوجيه | يفرض **كيف** يجب أن يفكر الوكيل (الفلسفة، المكدس التقني، الأمان). |
-| **hooks/** | الأتمتة والوقاية | ينفذ **متى** و **كيف** يتم تطبيق الأتمتة (فحص الأمان قبل الـ Commit، تحديث التوثيق). |
-| **prompts/** | البرامج المعرفية | يوجه الوكيل لتنفيذ مهام معقدة ومحددة بدقة (مثل توليد المواصفات). |
-| **settings/** | التكوين والاتصال | يحدد نقاط اتصال MCP للوصول إلى مصادر المعرفة الخارجية. |
-
-## 3. الميزات الرئيسية
-
-*   **الامتثال الصارم:** يضمن الالتزام بالمكدس التقني المعتمد (Flutter/Go) ومعايير الأمان (OWASP).
-*   **الأتمتة الوقائية:** يمنع الأخطاء الشائعة (مثل تسريب الأسرار) قبل أن تصل إلى المستودع.
-*   **القياس الموجه:** يربط كل متطلب بمقاييس DORA و SPACE لضمان أن العمل المنجز له تأثير قابل للقياس.
-*   **التعلم المستمر:** يستخدم MCP للوصول إلى وثائق رسمية (Mock) لضمان أن الكود المولد حديث وصحيح.
-
-## 4. خطة العمل المستقبلية (Roadmap)
-
-1.  **تطوير Hooks إضافية:** إضافة خطافات لـ `on-save` لتحديث التوثيق و `manual` لتشغيل نشر GitOps.
-2.  **تطوير Prompts متقدمة:** إنشاء برامج معرفية لـ "إعادة هيكلة الكود" و "إنشاء تقارير DORA".
-3.  **دمج أمثلة الكود:** إضافة مجلدات فرعية (مثل `frontend/flutter` و `backend/go`) تحتوي على أمثلة بسيطة تلتزم بـ `steering/`.
-
-## 5. كيفية البدء
-
-1.  **استنساخ المستودع:** `git clone [رابط المستودع]`
-2.  **تفعيل Kiro:** افتح المشروع في Kiro IDE. سيقوم Kiro تلقائيًا بتحميل ملفات `.kiro/` والبدء في توجيهك.
-3.  **ابدأ بالتخطيط:** استخدم الأمر `/createSpec` (الذي سيتم توجيهه بواسطة `prompts/create_spec.prompt.md`) لبدء مشروعك الجديد.
+It is designed to be cloned and used as the foundation for any professional project that requires high standards of security, quality, and architectural consistency.
 
 ---
-**تم إنشاء هذا القالب بواسطة Manus AI بناءً على توجيهات هندسية متقدمة.**
+
+## 🚀 Quickstart: How to Use This Blueprint
+
+This blueprint is ready to use. Simply clone the repository and open it in your Kiro IDE.
+
+### 1. The Core: The `.kiro/` Governance System
+
+The entire project is governed by the files within the `.kiro/` folder. This folder acts as the **Single Source of Truth** for the Kiro Agent.
+
+| Component | Purpose | Key Files |
+| :--- | :--- | :--- |
+| **Steering** | **Architectural Governance.** Enforces the project's philosophy, tech stack, security standards, and structure. | `philosophy.md`, `security.md`, `tech-stack.md`, `structure.md`, `product.md` |
+| **Specs** | **Spec-Driven Development.** Enforces the three-phase specification lifecycle (Requirements → Design → Tasks). | `requirements.md`, `design.md`, `tasks.md` |
+| **Prompts** | **Agent Guidance.** Contains the system prompts that force the Kiro Agent to adhere to all Steering and Spec files. | `system_spec_writer.prompt.md`, `system_code_generator.prompt.md` |
+| **Hooks** | **Preventive Automation.** Automatically runs security checks and documentation updates on commit/save. | `on-commit/10_security_scan.sh`, `on-save/30_update_docs.sh` |
+| **Settings** | **External Context.** Configures the Model Context Protocol (MCP) to balance global (OWASP) and cloud (AWS) references. | `mcp.json` |
+
+### 2. The Governing Principles
+
+This blueprint enforces two non-negotiable principles:
+
+1.  **Zero Principle: Security First** (`steering/philosophy.md`)
+    *   All development activities **MUST** adhere to the security standards defined in `steering/security.md` (OWASP ASVS, AWS Best Practices).
+    *   The `on-commit` hook **prevents** hardcoded secrets from reaching the repository.
+2.  **Core Principle: Spec-Driven Development (SDD)** (`steering/philosophy.md`)
+    *   No code generation or modification is allowed without a complete, approved Spec.
+
+### 3. Next Steps: Start Your First Spec
+
+To begin development, ask the Kiro Agent to create a new Spec. The Agent will guide you through the mandatory Requirements, Design, and Tasks phases, ensuring all generated code complies with the project's high standards.
+
+---
+*This README was generated and updated by the Manus Strategic Partner Agent to reflect the project's complete engineering status.*

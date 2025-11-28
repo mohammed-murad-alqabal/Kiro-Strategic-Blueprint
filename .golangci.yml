@@ -1,0 +1,24 @@
+# .golangci.yml
+# Configuration file for golangci-lint. Used to enforce DbC (Design by Contract) for Go code.
+
+run:
+  # يضمن أن Linter يخرج برمز خطأ إذا وجد أي مشاكل
+  issues-exit-code: 1
+  
+linters:
+  # تعطيل جميع linters افتراضياً لتمكين التحكم الدقيق
+  disable-all: true
+  # تفعيل linters الضرورية لفرض الجودة و DbC
+  enable:
+    - godoc
+    - gofmt
+    - goimports
+    - revive
+
+linters-settings:
+  godoc:
+    # فرض أن تكون جميع الدوال والأنواع العامة موثقة
+    # هذا هو الإعداد الأساسي لفرض DbC (contracts.md)
+    check-all: true
+    # يمكن إضافة استثناءات هنا إذا لزم الأمر، ولكن يفضل الصرامة
+    # exclude: "^(Get|Set|Is|Has)[A-Z]" 
