@@ -1,42 +1,37 @@
 {
   "mcp_version": "1.0",
-  "description": "Model Context Protocol (MCP) configuration for Kiro-Strategic-Blueprint. Defines external knowledge sources and agent configurations.",
+  "description": "Model Context Protocol (MCP) configuration for Kiro-Strategic-Blueprint. Prioritizes Strategic Governance and Platinum Compliance files.",
   "knowledge_sources": [
-    {
-      "id": "engineering_charter_file",
-      "type": "document",
-      "uri": "file:///home/ubuntu/upload/The_Definitive_Engineering_Charter__A_Blueprint_fo.md",
-      "priority": 95,
-      "description": "The Definitive Engineering Charter: Blueprint for technical stack, organizational principles, and quality standards. Highest priority context."
-    },
-    {
-      "id": "kiro_docs",
-      "type": "web",
-      "uri": "https://kiro.dev/docs",
-      "priority": 90,
-      "description": "Official Kiro IDE documentation for core concepts (Specs, Steering, Hooks, MCP)."
-    },
-    {
-      "id": "aws_best_practices_repo",
-      "type": "web",
-      "uri": "https://github.com/awsdataarchitect/kiro-best-practices.git",
-      "priority": 85,
-      "description": "Best practices and boilerplate for Kiro implementation on AWS (User-provided reference)."
-    },
-    {
-      "id": "owasp_asvs",
-      "type": "web",
-      "uri": "https://mock-mcp.kiro.dev/owasp/asvs",
-      "priority": 88,
-      "description": "OWASP Application Security Verification Standard (ASVS) for security best practices (Global Reference)."
-    },
-    {
-      "id": "kiro_workflow_prompts",
-      "type": "web",
-      "uri": "https://github.com/wirelessr/kiro-workflow-prompts",
-      "priority": 80,
-      "description": "Specialized workflow prompts and examples (User-provided reference)."
-    }
+    // --- PLATINUM GOVERNANCE FILES (Highest Priority: 98-95) ---
+    // These files define the core philosophy and strict compliance rules.
+    { "id": "platinum_philosophy", "type": "document", "uri": "file://.kiro/steering/philosophy.md", "priority": 98, "description": "Core Engineering Charter and Strategic Philosophy." },
+    { "id": "platinum_contracts", "type": "document", "uri": "file://.kiro/steering/contracts.md", "priority": 97, "description": "Design by Contract (DbC) rules for logical code precision." },
+    { "id": "platinum_security", "type": "document", "uri": "file://.kiro/steering/security.md", "priority": 96, "description": "Security-First and Resilience Engineering requirements." },
+    { "id": "platinum_terraform", "type": "document", "uri": "file://.kiro/steering/terraform-governance.md", "priority": 95, "description": "IaC Governance rules for security, cost, and tagging." },
+    
+    // --- ADVANCED GOVERNANCE FILES (High Priority: 94-90) ---
+    { "id": "platinum_testing", "type": "document", "uri": "file://.kiro/steering/testing-best-practices.md", "priority": 94, "description": "Mandatory testing standards and coverage requirements." },
+    { "id": "platinum_structure", "type": "document", "uri": "file://.kiro/steering/structure.md", "priority": 93, "description": "Project architecture and file structure, including Resilience Patterns." },
+    { "id": "platinum_docker", "type": "document", "uri": "file://.kiro/steering/docker-best-practices.md", "priority": 92, "description": "Containerization best practices." },
+    
+    // --- CORE KIRO FILES (Medium Priority: 85-80) ---
+    { "id": "core_tech", "type": "document", "uri": "file://.kiro/steering/tech.md", "priority": 85, "description": "Approved technology stack (Go, Flutter, Terraform)." },
+    
+    // --- PROMPTS AND WORKFLOWS (Medium Priority: 75-70) ---
+    { "id": "prompt_pr_review", "type": "document", "uri": "file://.kiro/prompts/prReview.prompt.md", "priority": 75, "description": "Platinum Code Review prompt for strategic compliance checks." },
+    { "id": "prompt_code_gen", "type": "document", "uri": "file://.kiro/prompts/system_code_generator.prompt.md", "priority": 74, "description": "System prompt for code generation, enforcing DbC and Resilience." },
+    { "id": "prompt_task_exec", "type": "document", "uri": "file://.kiro/prompts/executeTask.prompt.md", "priority": 73, "description": "Prompt for executing small, well-defined tasks." },
+    
+    // --- PROJECT-SPECIFIC FILES (Lower Priority: 60-50) ---
+    { "id": "spec_requirements", "type": "document", "uri": "file://.kiro/specs/requirements.md", "priority": 60, "description": "Functional and non-functional requirements." },
+    { "id": "spec_design", "type": "document", "uri": "file://.kiro/specs/design.md", "priority": 55, "description": "High-level design document." },
+
+    // --- EXTERNAL KNOWLEDGE SOURCES (Retained from original) ---
+    { "id": "engineering_charter_file", "type": "document", "uri": "file:///home/ubuntu/upload/The_Definitive_Engineering_Charter__A_Blueprint_fo.md", "priority": 99, "description": "The Definitive Engineering Charter: Blueprint for technical stack, organizational principles, and quality standards. Highest priority context." },
+    { "id": "kiro_docs", "type": "web", "uri": "https://kiro.dev/docs", "priority": 90, "description": "Official Kiro IDE documentation for core concepts (Specs, Steering, Hooks, MCP)." },
+    { "id": "aws_best_practices_repo", "type": "web", "uri": "https://github.com/awsdataarchitect/kiro-best-practices.git", "priority": 88, "description": "Best practices and boilerplate for Kiro implementation on AWS (User-provided reference)." },
+    { "id": "owasp_asvs", "type": "web", "uri": "https://mock-mcp.kiro.dev/owasp/asvs", "priority": 87, "description": "OWASP Application Security Verification Standard (ASVS) for security best practices (Global Reference)." },
+    { "id": "kiro_workflow_prompts", "type": "web", "uri": "https://github.com/wirelessr/kiro-workflow-prompts", "priority": 86, "description": "Specialized workflow prompts and examples (User-provided reference)." }
   ],
   "endpoints": [
     {
